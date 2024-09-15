@@ -1,14 +1,9 @@
-# Use the Eclipse Temurin JDK 21 (Alpine) as the base image
-FROM eclipse-temurin:21-alpine
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Expose port 8080 for the application
+FROM eclipse-temurin:21-jdk-alpine
+VOLUME /tmp
+COPY build/libs/compliance-tracker-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Copy the built JAR file from the Gradle build directory to the container
-COPY build/libs/compliance-tracker-*.jar /app/app.jar
-
-# Define the entry point for running the application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+RUN addgroup --system apprunner && adduser -S -s /bin/false -G apprunner apprunner
+RUN chown -R apprunner:apprunner /app.jar
+RUN chown -R apprunner:apprunner /tmp
+USER apprunner
+ENTRYPOINT ["java", "-jar", "app.jar"]
