@@ -8,5 +8,5 @@ http://localhost:8080/compliance-tracker/swagger-ui/index.html#/
 
 ### Sample request and response
 ```code
-
+https://github.com/jainakash2108/compliance-tracker/blob/main/src/main/http/compliance-tracker.http
 ```
