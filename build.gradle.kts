@@ -48,6 +48,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.9.1")
+    testImplementation("io.kotest:kotest-framework-datatest-jvm:5.9.1")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
 }
 
 configurations {
