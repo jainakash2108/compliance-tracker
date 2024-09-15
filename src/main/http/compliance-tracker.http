@@ -3,17 +3,17 @@ POST http://localhost:8080/compliance-tracker/api/v1/companies
 Content-Type: application/json
 
 {
-  "name": "Acme Corporation",
+  "name": "XYZ",
   "industry": "TECHNOLOGY",
   "address": {
-    "street": "123 Tech Avenue",
-    "postalCode": "12345",
-    "city": "Tech City"
+    "street": "Storgata 2",
+    "postalCode": "0484",
+    "city": ""
   },
   "primaryContact": {
     "name": "John Doe",
-    "email": "john.doe@example.com",
-    "phoneNumber": "+4747474747"
+    "email": "john.doe@gmail.com",
+    "phoneNumber": "+4723334373"
   },
   "countryOfOrigin": "NORWAY",
   "notes": "Leading tech company."
@@ -24,30 +24,30 @@ GET http://localhost:8080/compliance-tracker/api/v1/companies
 Accept: application/json
 
 ### HTTP Request to get a specific company by ID
-GET http://localhost:8080/compliance-tracker/api/v1/companies/fceeb504-9b2c-4fb5-a5be-7a2a046e090f
+GET http://localhost:8080/compliance-tracker/api/v1/companies/36f49cc0-0144-48cd-88e8-3d6366811674
 Accept: application/json
 
 ### HTTP Request to update an existing company
-PUT http://localhost:8080/compliance-tracker/api/v1/companies/fceeb504-9b2c-4fb5-a5be-7a2a046e090f
+PUT http://localhost:8080/compliance-tracker/api/v1/companies/621a5972-d980-4012-8b6e-bb46d8210a30
 Content-Type: application/json
 
 {
-  "name": "Acme Corporation Updated",
+  "name": "Acme Corporation",
   "industry": "TECHNOLOGY",
   "address": {
-    "street": "123 Tech Avenue Updated",
-    "postalCode": "12345",
-    "city": "Tech City"
+    "street": "Storgata 3",
+    "postalCode": "0484",
+    "city": ""
   },
   "primaryContact": {
-    "name": "John Doe Updated",
-    "email": "john.doe.updated@example.com",
-    "phoneNumber": "+4747474747"
+    "name": "John Doe",
+    "email": "john.doe1@gmail.com",
+    "phoneNumber": "+4723314373"
   },
   "countryOfOrigin": "SWEDEN",
-  "notes": "Updated notes."
+  "notes": "updated: Leading tech company."
 }
 
 ### HTTP Request to delete a company
-DELETE http://localhost:8080/compliance-tracker/api/v1/companies/23fa2ae7-98c5-47a9-a626-35ee0a161cf5
+DELETE http://localhost:8080/compliance-tracker/api/v1/companies/621a5972-d980-4012-8b6e-bb46d8210a30
 Accept: application/json

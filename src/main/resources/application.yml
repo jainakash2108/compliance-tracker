@@ -16,10 +16,6 @@ server:
       pattern: '%a - - %t "%r" %s %b "%{referer}i" "%{user-agent}i" "CID:%{x-request-id}o" %D'
   http2:
     enabled: true
-  error:
-    whitelabel:
-      enabled: false
-    path: /compliance-tracker/error
 
 spring:
   profiles:

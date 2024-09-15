@@ -21,7 +21,7 @@ class CompanyDao(private val namedParameterJdbcTemplate: NamedParameterJdbcTempl
         Company(
             id = UUID.fromString(rs.getString("company_id")),
             name = rs.getString("company_name"),
-            industry = Industry.valueOf(rs.getString("industry")),
+            industry = Industry.fromString(rs.getString("industry")),
             address = Address(
                 street = rs.getString("street"),
                 postalCode = rs.getString("postal_code"),
@@ -32,7 +32,7 @@ class CompanyDao(private val namedParameterJdbcTemplate: NamedParameterJdbcTempl
                 email = Email.of(rs.getString("contact_email")),
                 phoneNumber = PhoneNumber(rs.getString("contact_phone_number"))
             ),
-            countryOfOrigin = CountryOfOrigin.valueOf(rs.getString("country_of_origin")),
+            countryOfOrigin = CountryOfOrigin.fromString(rs.getString("country_of_origin")),
             notes = rs.getString("notes")
         )
     }
@@ -84,8 +84,11 @@ class CompanyDao(private val namedParameterJdbcTemplate: NamedParameterJdbcTempl
         }
     }
 
-    fun insert(company: Company): Int {
+    fun insert(company: Company): Company {
         val addressId = UUID.randomUUID()
+        val contactId = UUID.randomUUID()
+        val companyId = UUID.randomUUID()
+
         val addressSql = """
             INSERT INTO address (id, street, postal_code, city) 
             VALUES (:id, :street, :postalCode, :city)
@@ -98,7 +101,6 @@ class CompanyDao(private val namedParameterJdbcTemplate: NamedParameterJdbcTempl
         )
         namedParameterJdbcTemplate.update(addressSql, addressParams)
 
-        val contactId = UUID.randomUUID()
         val contactSql = """
             INSERT INTO contact (id, name, email, phone_number) 
             VALUES (:id, :name, :email, :phoneNumber)
@@ -116,7 +118,7 @@ class CompanyDao(private val namedParameterJdbcTemplate: NamedParameterJdbcTempl
             VALUES (:id, :name, :industry, :addressId, :contactId, :countryOfOrigin, :notes)
         """.trimIndent()
         val companyParams = mapOf(
-            "id" to UUID.randomUUID(),
+            "id" to companyId,
             "name" to company.name,
             "industry" to company.industry.name,
             "addressId" to addressId,
@@ -124,7 +126,9 @@ class CompanyDao(private val namedParameterJdbcTemplate: NamedParameterJdbcTempl
             "countryOfOrigin" to company.countryOfOrigin.name,
             "notes" to company.notes
         )
-        return namedParameterJdbcTemplate.update(companySql, companyParams)
+        namedParameterJdbcTemplate.update(companySql, companyParams)
+
+        return selectById(companyId) ?: throw NoSuchElementException("Company not found with ID: $companyId")
     }
 
     fun update(id: UUID, company: Company): Int {

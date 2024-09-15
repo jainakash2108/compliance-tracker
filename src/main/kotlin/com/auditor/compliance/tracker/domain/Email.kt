@@ -9,7 +9,7 @@ data class Email(val value: String) {
 
         fun of(email: String): Email {
             require(email.isNotBlank()) { "Email cannot be blank" }
-            require(isValidEmail(email)) { "Invalid email format: $email" }
+            require(isValidEmail(email)) { "Invalid email provided: $email" }
             return Email(email)
         }
 

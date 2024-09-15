@@ -72,7 +72,7 @@ class CompanyController(private val companyService: CompanyService) {
 
 private fun CompanyRequest.toDomain(): Company = Company(
     name = this.name,
-    industry = Industry.valueOf(this.industry),
+    industry = Industry.fromString(this.industry),
     address = Address(
         street = this.address.street,
         postalCode = this.address.postalCode,
@@ -83,13 +83,13 @@ private fun CompanyRequest.toDomain(): Company = Company(
         email = Email.of(this.primaryContact.email),
         phoneNumber = PhoneNumber(this.primaryContact.phoneNumber)
     ),
-    countryOfOrigin = CountryOfOrigin.valueOf(this.countryOfOrigin),
+    countryOfOrigin = CountryOfOrigin.fromString(this.countryOfOrigin),
     notes = this.notes
 )
 
 private fun Company.toResponse(): CompanyResponse {
     return CompanyResponse(
-        id = this.id.toString(),
+        id = this.id ?: throw RuntimeException("Id should not be null"),
         name = this.name,
         industry = this.industry.name,
         address = AddressResponse(

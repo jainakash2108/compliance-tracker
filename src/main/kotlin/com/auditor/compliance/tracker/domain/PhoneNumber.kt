@@ -23,7 +23,7 @@ data class PhoneNumber(val value: String) {
     }
 
     init {
-        require(isValidPhoneNumber(value)) { "Invalid phone number format: $value" }
+        require(isValidPhoneNumber(value)) { "Invalid phone number provided: $value" }
     }
 
     private fun isValidPhoneNumber(phone: String): Boolean {

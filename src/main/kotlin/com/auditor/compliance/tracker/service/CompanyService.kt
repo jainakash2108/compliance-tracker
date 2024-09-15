@@ -15,8 +15,7 @@ class CompanyService(private val companyDao: CompanyDao) {
 
     @Transactional
     fun create(company: Company): Company {
-        companyDao.insert(company)
-        return company.copy(id = UUID.randomUUID())
+        return companyDao.insert(company)
     }
 
     @Transactional

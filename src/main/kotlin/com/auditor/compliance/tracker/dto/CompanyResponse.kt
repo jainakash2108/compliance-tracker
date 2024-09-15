@@ -1,7 +1,9 @@
 package com.auditor.compliance.tracker.dto
 
+import java.util.UUID
+
 data class CompanyResponse(
-    val id: String,
+    val id: UUID,
     val name: String,
     val industry: String,
     val address: AddressResponse,
