@@ -1,0 +1,53 @@
+### HTTP Request to create a new company
+POST http://localhost:8080/compliance-tracker/api/v1/companies
+Content-Type: application/json
+
+{
+  "name": "Acme Corporation",
+  "industry": "TECHNOLOGY",
+  "address": {
+    "street": "123 Tech Avenue",
+    "postalCode": "12345",
+    "city": "Tech City"
+  },
+  "primaryContact": {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNumber": "+4747474747"
+  },
+  "countryOfOrigin": "NORWAY",
+  "notes": "Leading tech company."
+}
+
+### HTTP Request to get all companies
+GET http://localhost:8080/compliance-tracker/api/v1/companies
+Accept: application/json
+
+### HTTP Request to get a specific company by ID
+GET http://localhost:8080/compliance-tracker/api/v1/companies/fceeb504-9b2c-4fb5-a5be-7a2a046e090f
+Accept: application/json
+
+### HTTP Request to update an existing company
+PUT http://localhost:8080/compliance-tracker/api/v1/companies/fceeb504-9b2c-4fb5-a5be-7a2a046e090f
+Content-Type: application/json
+
+{
+  "name": "Acme Corporation Updated",
+  "industry": "TECHNOLOGY",
+  "address": {
+    "street": "123 Tech Avenue Updated",
+    "postalCode": "12345",
+    "city": "Tech City"
+  },
+  "primaryContact": {
+    "name": "John Doe Updated",
+    "email": "john.doe.updated@example.com",
+    "phoneNumber": "+4747474747"
+  },
+  "countryOfOrigin": "SWEDEN",
+  "notes": "Updated notes."
+}
+
+### HTTP Request to delete a company
+DELETE http://localhost:8080/compliance-tracker/api/v1/companies/23fa2ae7-98c5-47a9-a626-35ee0a161cf5
+Accept: application/json

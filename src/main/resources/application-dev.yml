@@ -1,0 +1,12 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: classpath:compliance-tracker-docker-compose/compose.yml
+  datasource:
+    username: compliance-tracker
+    password: compliance-tracker
+  liquibase:
+    user: compliance-tracker
+    password: compliance-tracker
+    contexts: dev

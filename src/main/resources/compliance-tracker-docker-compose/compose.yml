@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  compliance-tracker-database:
+    container_name: compliance-tracker-database
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=compliance-tracker
+      - POSTGRES_PASSWORD=compliance-tracker
+      - POSTGRES_DB=compliance-tracker
+    hostname: compliance-tracker-database
+    ports:
+      - "54445:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U compliance-tracker" ]
+      interval: 3s
+      timeout: 2s
+      retries: 2
+    volumes:
+      - ./compliance-tracker-database/init-dev-db.sql:/docker-entrypoint-initdb.d/init-dev-db.sql
+      - compliance-tracker_pg_data:/var/lib/postgresql/data
+
+volumes:
+  compliance-tracker_pg_data:

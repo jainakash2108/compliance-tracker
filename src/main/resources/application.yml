@@ -1,3 +1,50 @@
+logging:
+  config: classpath:log4j2.xml
+
+server:
+  servlet:
+    context-path: /compliance-tracker
+  port: 8080
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      buffered: true
+      prefix: stdout
+      suffix: ""
+      file-date-format: ""
+      pattern: '%a - - %t "%r" %s %b "%{referer}i" "%{user-agent}i" "CID:%{x-request-id}o" %D'
+  http2:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+    path: /compliance-tracker/error
+
 spring:
-    application:
-        name: compliance-tracker
+  profiles:
+    active: dev
+  application:
+    name: compliance-tracker
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:54445/compliance-tracker
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 3000
+      leak-detection-threshold: 30000
+      max-lifetime: 300000
+      maximum-pool-size: 5
+      minimum-idle: 3
+      pool-name: compliance-tracker-db-pool
+      schema: compliance-tracker
+      validation-timeout: 1500
+  liquibase:
+    change-log: db/changelog-master.xml
+    contexts: dev
+    default-schema: compliance-tracker
+    liquibase-schema: compliance-tracker
+  docker:
+    compose:
+      enabled: false

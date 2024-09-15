@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-company-table" author="akash.jain" context="dev,test,qa,prod">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="company"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="company">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="industry" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="country_of_origin" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="TEXT"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="company"
+                baseColumnNames="address_id"
+                constraintName="fk_company_address"
+                referencedTableName="address"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="company"
+                baseColumnNames="contact_id"
+                constraintName="fk_company_contact"
+                referencedTableName="contact"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="company" constraintName="fk_company_address"/>
+            <dropForeignKeyConstraint baseTableName="company" constraintName="fk_company_contact"/>
+            <dropTable tableName="company"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
