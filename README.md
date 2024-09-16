@@ -8,21 +8,31 @@ Application that allows Compliance Officers to manage and track company complian
 * Java 21
 * Spring boot 3
 * Gradle as build tool
+* Remix (React)
+* Typescript
+* Github actions
 
 ## Startup instructions
+
+### Backend
 
 ```shell
 # go to application directory
 cd compliance-tracker
 # build project using maven
 ./gradlew clean build
-# build docker image
-docker buildx build . -t compliance-tracker:latest --platform linux/amd64 --load
+./gradlew bootRun
 ```
 
+### Frontend
 ```
-Run ComplianceTrackerApplication
+cd frontend
+npm install
+npm run dev 
 ```
+
+Frontend dev: http://localhost:5173/
+
 
 ## Swagger documentation
 
