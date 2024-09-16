@@ -1,0 +1,22 @@
+name: Test, Build and Publish
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Build with Gradle
+        run: ./gradlew clean build --no-daemon
+      - name: Run Tests
+        run: ./gradlew test --no-daemon
+      - name: List build/libs files
+        run: ls build/libs
